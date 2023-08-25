@@ -6,9 +6,9 @@
 
 /**
 
-_printf - implementation of the built-in printf function
-@format: the format string used for formatting
-Return: the formatted output string
+*_printf - implementation of the built-in printf function
+*@format: the format string used for formatting
+*Return: the formatted output string
 */
 
 
