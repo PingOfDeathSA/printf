@@ -1,22 +1,13 @@
 #include "main.h"
 
-/** _putchar - Outputs character 'c' to stdout. Returns 1 on success, -1 on error with errno set. */
-
-int _putchar(char charector)
-{
-return (write(1, &charector, 1));
-}
-
 /**
- * _enter - Writes the string pointed to by 'str' to stdout.
- * @str: Pointer to the string to be printed.
- * Return: Number of characters written.
- */
-int _enter(char *string)
+
+_putchar - prints a character to the output
+@character: The character to be displayed
+Return: 1 if successful, -1 on encountering an error
+*/
+int _putchar(char charTor)
 {
-register short index;
-for (index = 0; string[index]; index++)
-_putchar(string[index]);
-return (index);
+	return (write(1, &charTor, 1));
 }
 
