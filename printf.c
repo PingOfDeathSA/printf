@@ -1,56 +1,51 @@
 #include "main.h"
-
-void printbuffer(char output_buffer[], int *buffIN);
-
-
+void handle_print_buffer(char buffer_list[], int *buff_indexInd);
 /**
-
 _printf - Function for formatted printing
-@format: Format string
-Return: Number of characters printed
+@format: The format string
+Return: Number of printed characters
 */
 int _printf(const char *format, ...)
 {
-	int i, pTD = 0, printChar = 0;
-	int flags_f, width_W, precision_P, size_S, buffIN = 0;
-	varaible_list lyst;
-	char output_buffer[BUFFER_SIZE];
-	if (format == NULL)
-	return (-1);
-	va_start(lyst, format);
-	for (index = 0; format && format[index] != '\0'; index++)
-	{
-	if (format[index] != '%')
-	{
-output_buffer[buffIN++] = format[i];
-if (buffIN == BUFFER_SIZE)
-				printbuffer(output_buffer, &buffIN)
-printChar++;
-	}
+int charecter_int, Pted = 0, P_Cha = 0;
+int flags_value, width_value, precision_value, size_value, buff_indexInd = 0;
+va_list argume_list;
+char buffer_list[BUFF_SIZE];
+if (format == NULL)
+return (-1);
+va_start(argume_list, format);
+for (charecter_int = 0; format && format[charecter_int] != '\0'; charecter_int++)
+{
+if (format[charecter_int] != '%')
+{
+buffer_list[buff_indexInd++] = format[charecter_int];
+if (buff_indexInd == BUFF_SIZE)
+handle_print_buffer(buffer_list, &buff_indexInd);
+P_Cha++;
+}
 else
 {
-printbuffer(output_buffer, &buffIN);
-flags_f = extractflags_f(format, &index);
-width_W = extractwidth(format, &index, lyst);
-precision_P = extractprecisionP(format, &index, lyst);
-size_S = extractsize(format, &index);
-++index;
-pTD = handle_print(format_code, &index, lyst, output_buffer,
-flags_f, width_W, precision_P, size_S);
-	if (pTD == -1)
+handle_print_buffer(buffer_list, &buff_indexInd);
+flags_value = handle_get_flags(format, &charecter_int);
+width_value = handle_get_width(format, &charecter_int, argume_list);
+precision_value = handle_get_precision(format, &i_, argume_list);
+size_value = handle_get_size(format, &charecter_int);
+++charecter_int;
+Pted = handle_print_fun(format, &charecter_int, argume_list, buffer_list,
+flags_value, width_value, precision_value, size_value);
+if (Pted == -1)
 return (-1);
-printChar += pTD;
+P_Cha += Pted;
 }
 }
-printbuffer(buffer, &buffIN);
-va_end(lyst);
-return (printChar);
+handle_print_buffer(buffer_list, &buff_indexInd);
+va_end(argum_list);
+return (P_Cha);
 }
-void printbuffer(char output_buffer[], int *buffIN)
+void handle_print_buffer(char buffer_list[], int *buff_indexInd)
 {
-	if (*buffIN > 0)
-		write(1, &output_buffer[0], *buffIN);
-
-	*buffIN = 0;
+if (*buff_indexInd > 0)
+write(1, &buffer_list[0], *buff_indexInd);
+*buff_indexInd = 0;
 }
 
