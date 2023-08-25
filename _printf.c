@@ -1,49 +1,40 @@
-
-#include "main.h"
+#include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <limits.h>
 
 /**
- * _printf - implementation of the inbuilt printf
- * @format: the format specifier
- * Return: the formated string
- */
+
+_printf - implementation of the built-in printf function
+@format: the format string used for formatting
+Return: the formatted output string
+*/
 
 
+int _printf(const char *format, ...)
+{
+	int logged = 0;
 
-int _printf(const char *format, ...) {
-    va_list arg_list;
-    va_start(arg_list, format);
+	va_list arguments;
 
-    int printed_chars = 0;
-    for (int i = 0; format[i] != '\0'; i++) {
-        if (format[i] == '%') {
-            i++;
-            if (format[i] == 'c') {
-                char c = va_arg(arg_list, int);
-                _putchar(c);
-                printed_chars++;
-            } else if (format[i] == 's') {
-                char *str = va_arg(arg_list, char *);
-                for (int j = 0; str[j] != '\0'; j++) {
-                    _putchar(str[j]);
-                    printed_chars++;
-                }
-            } else if (format[i] == '%') {
-                _putchar('%');
-                printed_chars++;
-            }
-        } else {
-            _putchar(format[i]);
-            printed_chars++;
-        }
-    }
+	va_start(arguments, format);
 
-    va_end(arg_list);
-
-    return printed_chars;
+	while (*format != '\0')
+	{
+		if (*format == '%')
+		{
+			format++;
+			logged = selector(format, arguments, logged);
+			format++;
+		}
+		else
+		{
+			_putchar(*format);
+			logged++;
+			format++;
+		}
+	}
+	va_end(arguments);
+	return (logged);
 }
-
-
-
 

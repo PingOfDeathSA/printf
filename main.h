@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <limits.h>
 
-int _putchar(char character);
+int _putchar(char charTor);
 int printf_char(va_list arguments, int logged);
 int printf_OT(unsigned int intNo, int logged);
 int Pointer_S(const char *format, va_list arguments, int logged);
