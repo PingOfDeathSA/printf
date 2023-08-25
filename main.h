@@ -1,185 +1,109 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdio.h>
-
-#include <unistd.h>
-#include <stdarg.h>
-
-
 #define UNUSED(x) (void)(x)
+#define BUFF_SIZE 1024
+#include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
+/* FLAGS */
+#define Flag_PLUS 2
+#define Flag_ZERO 4
+#define Flag_HASH 8
+#define Flag_MINUS 1
 
-#define BUFF_cyze 1024
+#define Flag_SPACE 16
 
-
-
-#define F_HASH 8
-
-#define F_SPACE 16
-
-#define F_MINUS 1
-#define F_PLUS 2
-
-#define F_ZERO 4
-
-
-
-
-
-#define S_LONG 2
-#define S_SHORT 1
-
+/* SIZES */
+#define Size_LONG 2
+#define Size_SHORT 1
 
 /**
 
-fmt struct - Structure for operation format
-@fmt: The format input.
-@fn: The linked function.
+Structure representing a format specifier with its associated handling function.
 */
 struct fmt
-
 {
-
-char fmt;
-int (*fn)(va_list, char[], int, int, int, int);
-
+	char fmt;
+	int (*fn)(va_list, char[], int, int, int, int);
 };
 
+/** 
+ * Defines a structure fmt_t, which represents a format and its associated function.
+ *
+ * @fmt: The format data.
+ * @fm_t: The corresponding associated function.
+ */
 
 typedef struct fmt fmt_t;
 
-
 int _printf(const char *format, ...);
-int handle0_print(const char *fmt, int *index,
-
-va_list Arg_ist, char puvv[], int Vlegs, int veedth, int prec, int cyze);
-
-
-
-
-
-int print0_char(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int print0_string(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int print0_percent(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-
-
-int print0_int(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int print0_binary(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int print0_unsigned(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-int print0_octal(va_list kinds, char puvv[],
-
-
-
-
-int Vlegs, int veedth, int prec, int cyze);
-int print0_hexadecimal(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int print0_hexa_upper(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-
-int print0_hexa(va_list kinds, char map_to[],
-
-char puvv[], int Vlegs, char flag_ch, int veedth, int prec, int cyze);
-
-
-
-
-
-int print0_non_printable(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-
-
-
-int print0_pointer(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int get0_Vlegs(const char *format, int *index);
-
-int get0_veedth(const char *format, int *index, va_list Arg_ist,);
-
-int get0_prec(const char *format, int *index, va_list Arg_ist,);
-
-int get0_cyze(const char *format, int *index);
-
-
-
-
-int print0_reverse(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-
-int print0_rot13string(va_list kinds, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-
-
-int handle0_write_char(char c, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int write0_number(int is_positive, int endx, char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-int write0_num(int endx, char bff[], int Vlegs, int veedth, int prec,
-
-int length, char bad_d, char extra_c);
-
-int write0_pointer(char puvv[], int endx, int length,
-
-int veedth, int Vlegs, char bad_d, char extra_c, int bad_d_start);
-
-int write0_unsgnd(int is_negative, int endx,
-
-char puvv[],
-
-int Vlegs, int veedth, int prec, int cyze);
-
-
-int is_printable(char);
-
-int append0_hexa_code(char, char[], int);
-
-int is0_digit(char);
-
-
-
-long int convert0_cyze_number(long int number, int cyze);
-
-long int convert0_cyze_unsgnd(unsigned long int number, int cyze);
-
-
+int handle_print_fun(const char *fmt, int *indexInd,
+va_list argum_list, char buffer_list[], int flags_value, int width_value, int precision_value, int size_value);
+
+
+
+/* Functions for printing characters and strings */
+int handle_print_char(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_string(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_percent(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+
+/* Functions for printing numerical values */
+int handle_print_int(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_binary(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_unsigned(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_octal(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_hexadecimal(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_hexa_upper(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+
+int handle_print_hexa(va_list value_types, char map_to[],
+char buffer_list[], int flags_value, char flag_ch, int width_value, int precision_value, int size_value);
+
+/* Function for printing non-printable characters */
+int handle_non_printable(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_print_pointer(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_get_flags(const char *format, int *i_);
+int handle_get_width(const char *format, int *i_, va_list argum_list);
+int handle_get_precision(const char *format, int *i_, va_list argum_list);
+int handle_get_size(const char *format, int *i_);
+
+int handle_print_reverse(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+
+int handle_print_rot13string(va_list value_types, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+
+int handle_handle_write_char(char c, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_handle_write_number(int is_positive, int indexInd, char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+int handle_write_num(int indexInd, char buff[], int flags_value, int width_value, int precision_value,
+	int length, char pading_padd, char ex_charec);
+int handle_write_pointer(char buffer_list[], int indexInd, int length,
+	int width_value, int flags_value, char pading_padd, char ex_charec, int pading_start);
+
+int handle_write_unsgnd(int true_negative, int indexInd,
+char buffer_list[],
+	int flags_value, int width_value, int precision_value, int size_value);
+
+/****************** UTILS ******************/
+int handle_is_printable(char);
+int handle_append_hexa_code(char, char[], int);
+int handle_is_digit(char);
+
+long int handle_convert_size_number(long int number, int size_value);
+long int handle_convert_size_unsgnd(unsigned long int number, int size_value);
 
 #endif /* MAIN_H */
 

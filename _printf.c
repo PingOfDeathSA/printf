@@ -1,107 +1,53 @@
 #include "main.h"
-
-
-
-void print0_puvv(char puvv[], int *puvv_index);
+void handle_print_buffer(char buffer_list[], int *buff_indexInd);
 /**
-
 _printf - Function for formatted printing
-@format: Format specifier
-Return: Number of characters logged
+@format: The format string
+Return: Number of printed characters
 */
 int _printf(const char *format, ...)
-
 {
-
-int index, logged = 0, logged_chars = 0;
-
-int Vlegs, veedth, prec, cyze, puvv_index = 0;
-
-va_list Arg_ist;
-
-char puvv[BUFF_SIZE];
-
+int charecter_int, Pted = 0, P_Cha = 0;
+int flags_value, width_value, precision_value, size_value, buff_indexInd = 0;
+va_list argume_list;
+char buffer_list[BUFF_SIZE];
 if (format == NULL)
-
 return (-1);
-
-va_start(Arg_ist, format);
-
-for (index = 0; format && format[index] != '\0'; index++)
-
+va_start(argume_list, format);
+for (charecter_int = 0; format && format[charecter_int] != '\0'; charecter_int++)
 {
-
-if (format[index] != '%')
-
+if (format[charecter_int] != '%')
 {
-
-puvv[puvv_index++] = format[index];
-
-if (puvv_index == BUFF_SIZE)
-
-print0_puvv(puvv, &puvv_index);
-
-logged_chars++;
-
+buffer_list[buff_indexInd++] = format[charecter_int];
+if (buff_indexInd == BUFF_SIZE)
+handle_print_buffer(buffer_list, &buff_indexInd);
+P_Cha++;
 }
-
 else
-
 {
-
-print0_puvv(puvv, &puvv_index);
-
-Vlegs = get0_flags(format, & index);
-
-veedth = get0_width(format, & index, Arg_ist);
-
-prec = get0_precision(format, & index, Arg_ist);
-
-cyze = get0_size(format, &index);
-++index;
-
-logged = handle0_print(format, &index, Arg_ist, puvv,
-
-Vlegs, veedth, prec, cyze);
-
-if (logged == -1)
-
+handle_print_buffer(buffer_list, &buff_indexInd);
+flags_value = handle_get_flags(format, &charecter_int);
+width_value = handle_get_width(format, &charecter_int, argume_list);
+precision_value = handle_get_precision(format, &charecter_int, argume_list);
+size_value = handle_get_size(format, &charecter_int);
+++charecter_int;
+Pted = handle_print_fun(format, &charecter_int, argume_list, buffer_list,
+flags_value, width_value, precision_value, size_value);
+if (Pted == -1)
 return (-1);
-
-logged_chars += logged;
-
+P_Cha += Pted;
 }
-
 }
-
-
-
-print0_puvv(puvv, &puvv_index);
-
-
-
-va_end(Arg_ist);
-
-
-
-return (logged_chars);
-
+handle_print_buffer(buffer_list, &buff_indexInd);
+va_end(argume_list);
+return (P_Cha);
 }
-
-
-
-
-void print0_puvv(char puvv[], int *puvv_index)
-
+void handle_print_buffer(char buffer_list[], int *buff_indexInd)
 {
-
-if (*puvv_index > 0)
-
-write(1, &puvv[0], *puvv_index);
-
-
-
-*puvv_index = 0;
-
+if (*buff_indexInd > 0)
+write(1, &buffer_list[0], *buff_indexInd);
+*buff_indexInd = 0;
 }
+
+
 
