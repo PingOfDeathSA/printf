@@ -1,3 +1,4 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -24,12 +25,12 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			logged =   Pointer_S (format, arguments, logged);
+			logged = Clacter(format, arguments, logged);
 			format++;
 		}
 		else
 		{
-			putchar(*format);
+			_putchar(*format);
 			logged++;
 			format++;
 		}
