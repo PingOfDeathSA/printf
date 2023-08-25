@@ -33,7 +33,6 @@ int Clacter(const char *format, va_list arguments, int logged)
 			break;
 		case 'b':
 			logged = printf_0_1_bina(va_arg(arguments, unsigned int), logged);
-			break;
 		case 'x':
 		case 'X':
 			logged = ex_values(va_arg(arguments, unsigned int), logged, (*format == 'X') ? 1 : 0);
