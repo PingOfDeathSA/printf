@@ -1,51 +1,40 @@
 #include "main.h"
-void handle_print_buffer(char buffer_list[], int *buff_indexInd);
+
 /**
-_printf - Function for formatted printing
-@format: The format string
-Return: Number of printed characters
+
+_printf - Takes a string and its parameters to print formatted content.
+@format: Input string with desired characters. Returns total count of printed characters.
 */
+
 int _printf(const char *format, ...)
 {
-int charecter_int, Pted = 0, P_Cha = 0;
-int flags_value, width_value, precision_value, size_value, buff_indexInd = 0;
-va_list argume_list;
-char buffer_list[BUFF_SIZE];
-if (format == NULL)
-return (-1);
-va_start(argume_list, format);
-for (charecter_int = 0; format && format[charecter_int] != '\0'; charecter_int++)
-{
-if (format[charecter_int] != '%')
-{
-buffer_list[buff_indexInd++] = format[charecter_int];
-if (buff_indexInd == BUFF_SIZE)
-handle_print_buffer(buffer_list, &buff_indexInd);
-P_Cha++;
+	int logged_charecters;
+	conver_t format_type_list[] = {
+		{"%", print_get_percent},
+		{"d", print_get_number},
+		{"i", print_get_number},
+		{"c", print_get_charector},
+		{"s", print_get_str},
+		{"b", print_get_0_1_binary},
+		{"u", print_get_u_i},
+		{"o", print_get_oc},
+		{"x", print_get_hexadecimal},
+		{"X", print_get_Hexadecimal},
+		{"S", print_get_Str},
+		{"p", print_get_arrow_point},
+		{"r", print_get_reverse},
+		{"R", print_get_allrot13},
+		{NULL, NULL},
+	};
+	va_list argument_list_values;
+
+	if (format == NULL || format < 0)
+		return (-1);
+
+	va_start(argument_list_values, format);
+	logged_charecters = format_reciever(format, format_type_list, argument_list_values);
+	va_end(argument_list_values);
+	return (logged_charecters);
 }
-else
-{
-handle_print_buffer(buffer_list, &buff_indexInd);
-flags_value = handle_get_flags(format, &charecter_int);
-width_value = handle_get_width(format, &charecter_int, argume_list);
-precision_value = handle_get_precision(format, &i_, argume_list);
-size_value = handle_get_size(format, &charecter_int);
-++charecter_int;
-Pted = handle_print_fun(format, &charecter_int, argume_list, buffer_list,
-flags_value, width_value, precision_value, size_value);
-if (Pted == -1)
-return (-1);
-P_Cha += Pted;
-}
-}
-handle_print_buffer(buffer_list, &buff_indexInd);
-va_end(argum_list);
-return (P_Cha);
-}
-void handle_print_buffer(char buffer_list[], int *buff_indexInd)
-{
-if (*buff_indexInd > 0)
-write(1, &buffer_list[0], *buff_indexInd);
-*buff_indexInd = 0;
-}
+
 
