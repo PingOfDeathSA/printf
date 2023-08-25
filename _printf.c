@@ -24,12 +24,12 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			logged = selector(format, arguments, logged);
+			logged =   Pointer_S (format, arguments, logged);
 			format++;
 		}
 		else
 		{
-			_putchar(*format);
+			putchar(*format);
 			logged++;
 			format++;
 		}
