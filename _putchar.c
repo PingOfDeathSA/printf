@@ -1,17 +1,10 @@
-#include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
 #include <unistd.h>
-#include <limits.h>
-
 /**
-
-_putchar - prints a character to the output
-@character: The character to be displayed
-Return: 1 if successful, -1 on encountering an error
-*/
-int _putchar(char charTor)
+ * _putchar - write character c to the stdout
+ * @c: the character
+ * Return: 1 on success and -1 otherwise
+ */
+int _putchar(char cha)
 {
-	return (write(1, &charTor, 1));
+	return (write(1, &cha, 1));
 }
-
